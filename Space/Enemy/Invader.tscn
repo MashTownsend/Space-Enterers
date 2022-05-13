@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Sprites/Invader_Redux.png" type="Texture" id=1]
+[ext_resource path="res://Enemy/Invader.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 208, 143 )
+
+[node name="Invader" type="KinematicBody2D"]
+use_parent_material = true
+collision_layer = 2
+collision_mask = 5
+script = ExtResource( 2 )
+probablity_of_a_shot = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 1, -79 )
+shape = SubResource( 1 )
+
+[node name="InvaderRedux" type="Sprite" parent="."]
+position = Vector2( 16, -63 )
+texture = ExtResource( 1 )
+flip_v = true

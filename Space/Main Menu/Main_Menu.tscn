@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Sprites/Black.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Logo.png" type="Texture" id=2]
+[ext_resource path="res://Main Menu/radial_distort.shader" type="Shader" id=3]
+[ext_resource path="res://Sprites/arcadeclassic.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/arcadeclassic2.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/download__1_-removebg-preview.png" type="Texture" id=6]
+[ext_resource path="res://Main Menu/Main_Menu.gd" type="Script" id=7]
+[ext_resource path="res://Sprites/arcadeclassic3.png" type="Texture" id=8]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 3 )
+shader_param/overlay = false
+shader_param/scanlines_opacity = 0.4
+shader_param/scanlines_width = 0.25
+shader_param/grille_opacity = 0.3
+shader_param/resolution = Vector2( 640, 480 )
+shader_param/pixelate = true
+shader_param/roll = true
+shader_param/roll_speed = 8.0
+shader_param/roll_size = 15.0
+shader_param/roll_variation = 1.8
+shader_param/distort_intensity = 0.05
+shader_param/noise_opacity = 0.4
+shader_param/noise_speed = 5.0
+shader_param/static_noise_intensity = 0.06
+shader_param/aberration = 0.03
+shader_param/brightness = 1.4
+shader_param/discolor = true
+shader_param/warp_amount = 1.0
+shader_param/clip_warp = false
+shader_param/vignette_intensity = 0.4
+shader_param/vignette_opacity = 0.5
+
+[node name="Main_Menu" type="Node2D"]
+material = SubResource( 1 )
+script = ExtResource( 7 )
+
+[node name="Logo" type="Sprite" parent="."]
+position = Vector2( 510, 341 )
+scale = Vector2( 0.735556, 0.736504 )
+texture = ExtResource( 2 )
+flip_v = true
+
+[node name="press" type="Sprite" parent="."]
+position = Vector2( 285, 76 )
+scale = Vector2( 0.337765, 0.411702 )
+texture = ExtResource( 4 )
+flip_v = true
+
+[node name="to start" type="Sprite" parent="."]
+position = Vector2( 697, 71 )
+scale = Vector2( 0.334429, 0.395833 )
+texture = ExtResource( 5 )
+flip_v = true
+
+[node name="x_button" type="Sprite" parent="."]
+position = Vector2( 465, 74 )
+scale = Vector2( 0.339, 0.339 )
+texture = ExtResource( 6 )
+
+[node name="connect_controller" type="Sprite" parent="."]
+position = Vector2( 516, 73 )
+scale = Vector2( 1.00669, 1.43435 )
+texture = ExtResource( 8 )
+flip_v = true
+
+[node name="Black" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 512, 300 )
+scale = Vector2( 1, 0.585938 )
+texture = ExtResource( 1 )
