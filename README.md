@@ -8,3 +8,8 @@ R - Reload
 A - Move Left
 D - Move Right
 Spacebar - Shoot
+
+Still needed?
+1. Life count
+2. Improved enemy shooter algorithm
+3. Point system
