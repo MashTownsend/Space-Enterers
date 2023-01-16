@@ -12,9 +12,11 @@ func _physics_process(delta: float) -> void:
 		var collision = get_slide_collision(i)
 		if collision.collider.name != "TileMap":
 			# here we delete the enemy
-			print("deleting enemy = " + collision.collider.name)
+			#print("deleting enemy = " + collision.collider.name)
 			var bumped = get_tree().get_root().get_node("Battlefield").get_node(collision.collider.name)
+			# get_parent().get_node(self.name).disconnect("left_wall_bounce", get_parent().get_node(self.name), "_on_left_wall_bounce")
+			# get_parent().get_node(self.name).disconnect("right_wall_bounce", get_parent().get_node(self.name), "_on_right_wall_bounce")
 			bumped.queue_free()
 			#get_tree().get_root().remove_child(get_tree().get_root().get_node(bumped))
 		#print("deleting pulse")
-		get_parent().remove_child(self)
+		get_parent().get_node(self.name).queue_free()

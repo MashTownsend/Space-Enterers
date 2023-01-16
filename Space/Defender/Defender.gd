@@ -30,13 +30,13 @@ func _process(delta: float) -> void:
 		# set the timer off
 		pulse_available = 0
 		timer.start()
-		
 		# instantiate the pulse
 		var pulseInstance = pulse.instance()
 		pulseInstance.name = "Pulse" + str(pulse_count)
 		pulse_count += 1
 		pulseInstance.scale = Vector2(0.05, 0.05)
 		pulseInstance.position = Vector2(position.x, position.y + 20)
+		# add pulse to node tree
 		get_tree().get_root().get_node("Battlefield").add_child_below_node(get_tree().get_root().get_node("Battlefield").get_node("TileMap"),pulseInstance)
 		
 		

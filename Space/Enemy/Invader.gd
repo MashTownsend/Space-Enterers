@@ -7,8 +7,8 @@ var laser = preload("res://Enemy/Laser.tscn")
 export var time_between_shots = 0.5
 export var init_speed: = 200.0
 var speed: = init_speed
-export var percentage_increase = 10
-export var probablity_of_a_shot = 20
+export var percentage_increase = 3
+export var probablity_of_a_shot = 10 # %
 
 var bumped
 signal left_wall_bounce
@@ -19,11 +19,14 @@ var rng
 
 func _ready() -> void:
 	rng = RandomNumberGenerator.new()
+	velocity.x = init_speed
+	velocity.y = 0.0
 	timer = Timer.new()
 	timer.connect("timeout",self,"_on_timer_timeout")
 	add_child(timer)
 	timer.wait_time = time_between_shots
 	timer.start()
+	
 
 func _physics_process(delta: float) -> void:
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -44,8 +47,10 @@ func _physics_process(delta: float) -> void:
 			emit_signal("right_wall_bounce")
 			
 		elif get_which_wall_collided() == 0:
-			get_tree().get_root().get_node("Battlefield").remove_child(get_tree().get_root().get_node("Battlefield").get_node(bumped))
-			get_parent().remove_child(self)
+			# get_parent().get_node(self.name).disconnect("left_wall_bounce", get_parent().get_node(self.name), "_on_left_wall_bounce")
+			# get_parent().get_node(self.name).disconnect("right_wall_bounce", get_parent().get_node(self.name), "_on_right_wall_bounce")
+			get_tree().get_root().get_node("Battlefield").get_node(bumped).queue_free()
+			get_parent().get_node(self.name).queue_free()
 		
 		elif get_which_wall_collided() == "none":
 			print("none")
@@ -70,23 +75,29 @@ func move_down():
 
 func _on_left_wall_bounce():
 	move_down()
-	speed = init_speed * (100 + percentage_increase)/100
-	velocity.x = 1 * speed
-	velocity.y = 0.0
+	velocity.x = round(abs(velocity.x) * (100 + percentage_increase)/100)
+	speed = velocity.x
+	#velocity.x = speed
+	#velocity.y = 0.0
 #
 func _on_right_wall_bounce():
 	move_down()
-	speed = speed * 1.1
-	velocity.x = -1 * speed
-	velocity.y = 0.0
+	velocity.x = -1 * round(abs(velocity.x) * (100 + percentage_increase)/100)
+	speed = velocity.x
+	#speed = round(speed * (100 + percentage_increase)/100)
+	#velocity.x = -1 * speed
+	#velocity.y = 0.0
 	
 func _on_timer_timeout():
 	# produce a random number
 	rng.randomize()
 	var my_random_number = rng.randf() # 0.0 - 1.0 (inclusive)
 	var percent = probablity_of_a_shot/100.0
-	#print(my_random_number)
-	if my_random_number < percent:
+	# use random number to decide if this invader is shooting
+	# needs to be dependant on distance from defender!! 
+	# CURRENTLY IT IS NOT
+
+	if my_random_number <= percent:
 		var laserInstance = laser.instance()
 		laserInstance.scale = Vector2(0.05, 0.05)
 		laserInstance.position = Vector2(position.x, position.y - 20)

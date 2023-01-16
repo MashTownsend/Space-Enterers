@@ -11,7 +11,6 @@ use_parent_material = true
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 2 )
-probablity_of_a_shot = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 1, -79 )
